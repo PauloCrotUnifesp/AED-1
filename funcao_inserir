@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+int insere(int k, int v[], int n, int y) {
+    int j;
+
+    for (j = n; j > k; j--) {
+        v[j] = v[j - 1];
+    }
+
+    v[k] = y;
+    return n + 1; // Retorna o novo tamanho do vetor
+}
+
+int main() {
+    int n, i, pos, val;
+    printf("Digite o tamanho do vetor: ");
+    scanf("%d", &n);
+    
+    int v[100]; // Vetor com capacidade máxima de 100 elementos
+    
+    printf("Digite os elementos do vetor:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &v[i]);
+    }
+
+ 
+    printf("Digite a posição onde deseja inserir o novo valor: ");
+    scanf("%d", &pos);
+    printf("Digite o valor a ser inserido: ");
+    scanf("%d", &val);
+
+
+    n = insere(pos, v, n, val);
+
+    printf("Vetor atualizado:\n");
+    for (i = 0; i < n; i++) {
+        printf("%d ", v[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
