@@ -1,0 +1,101 @@
+#include <stdio.h>
+
+
+
+struct fr {
+  int num, den;
+};
+
+struct fr soma(struct fr x, struct fr y) {
+  struct fr retorno;
+retorno.num = x.num * y.den + y.num * x.den;
+retorno.den = x.den * y.den;
+  
+ return retorno; 
+}
+
+ struct fr subtracao(struct fr x, struct fr y) {
+struct fr retorno;
+    retorno.num = x.num * y.den - y.num * x.den;
+    retorno.den = x.den * y.den;
+    return retorno;
+  }
+
+  struct fr multiplicacao(struct fr x, struct fr y) 
+  {
+
+    struct fr retorno;
+retorno.num = x.num * y.num;
+    retorno.den = x.den * y.den;
+
+    return retorno;
+  }
+
+  struct fr divisao(struct fr x, struct fr y) {
+  
+    struct fr retorno;
+retorno.num = x.num * y.den;
+    retorno.den = y.num * x.den;
+
+    return retorno;
+  }
+
+int MDC (int a, int b)
+  {
+    return (b == 0) ? a : MDC(b, a % b);
+    
+  }
+
+  struct fr irredutivel(struct fr f)
+  {
+int mdc = (f.num < 0) ? MDC (-f.num, f.den) : MDC(f.num, f.den);
+    f.num /= mdc;
+    f.den /= mdc;
+ 
+  return f;
+  }
+
+int main (void) {
+int N; 
+  char operador;
+
+  struct fr x, y, resultado;
+
+
+scanf("%d\n", &N);
+for (int i = 0; i < N; ++i) {
+
+scanf("%d / %d %c %d / %d\n", &x.num, &x.den, &operador, &y.num, &y.den);
+  
+
+
+switch (operador)
+{
+  case '+':
+  resultado = soma(x, y);
+break;
+
+  case '-':
+    resultado = subtracao(x, y);
+break;
+
+    case '*':
+resultado = multiplicacao(x, y);
+break;
+  
+  case '/':
+resultado = divisao(x, y);
+break;
+
+}
+  printf("%d/%d = ", resultado.num, resultado.den);
+      resultado = irredutivel(resultado);
+      printf("%d/%d\n", resultado.num, resultado.den);
+  
+
+  
+  
+}
+  
+  return 0;
+}
