@@ -1,0 +1,76 @@
+(vi a, vi b) {
+    int i = 0, j = 0;
+    vi r;
+    r.data = NULL;
+    r.size = 0;
+
+    while (i < a.size && j < b.size) {
+        if (a.data[i] < b.data[j]) {
+            push_back(&r, a.data[i]);
+            i++;
+        } else {
+            push_back(&r, b.data[j]);
+            counter += a.size - i;
+            j++;
+        }
+    }
+
+    while (i < a.size) {
+        push_back(&r, a.data[i]);
+        i++;
+    }
+
+    while (j < b.size) {
+        push_back(&r, b.data[j]);
+        j++;
+    }
+
+    return r;
+}
+
+vi mergeSort(int left, int right) {
+    vi r;
+    r.data = NULL;
+    r.size = 0;
+    int middle = (left + right) / 2;
+
+    if (left + 1 >= right) {
+        push_back(&r, v.data[left]);
+        return r;
+    }
+
+    vi a = mergeSort(left, middle);
+    vi b = mergeSort(middle, right);
+    r = merge(a, b);
+
+    free(a.data);
+    free(b.data);
+
+    return r;
+}
+
+int main() {
+    int n, x;
+
+    while (SC1(n) && n) {
+        counter = 0;
+        v.data = NULL;
+        v.size = 0;
+
+        FOR(i, n) {
+            SC1(x);
+            push_back(&v, x);
+        }
+
+        vi sorted = mergeSort(0, n);
+        free(sorted.data);
+        free(v.data);
+
+        if (counter % 2)
+            puts("Marcelo");
+        else
+            puts("Carlos");
+    }
+
+    return 0;
+}
