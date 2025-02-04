@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//estrutura que representa um caixa
+typedef struct {
+int id;
+int tempo_processamento;
+int tempo_livre;
+} Caixa;
+
+//estrutura que representa um cliente
+typedef struct {
+int itens;
+} Cliente;
+
+
+int comparar_caixas(const void *a, const void *b) {
+const Caixa *caixa_a = (const Caixa *)a;
+const Caixa *caixa_b = (const Caixa *)b;
+   return caixa_a->tempo_livre - caixa_b->tempo_livre;
+  
+}
+
+int main() {
+
+int N, M;
+  scanf("%d %d", &N, &M);
+
+  Caixa caixas[N];
+for (int i = 0; i < N; i++) {
+scanf("%d", &caixas[i].tempo_processamento);
+  caixas[i].id = i + 1;
+  caixas[i].tempo_livre = 0;
+}
+
+  Cliente clientes[M];
+  for (int i = 0; i < M; i++) {
+      scanf("%d", &clientes[i].itens);
+  }
+
+  qsort(caixas, N, sizeof(Caixa), comparar_caixas);
+
+  for (int i = 0; i < M; i++) {
+int indice_caixa_livre = 0;
+    for (int j = 1; j < N; j++) {
+        if (caixas[j].tempo_livre < caixas[indice_caixa_livre].tempo_livre) {
+            indice_caixa_livre = j;
+        }
+    }
+
+
+    caixas[indice_caixa_livre].tempo_livre += caixas[indice_caixa_livre].tempo_processamento * clientes[i].itens;
+    
+  }
+
+int tempo_total = caixas[0].tempo_livre;
+  for (int i=1;i<N;i++){
+if (caixas[i].tempo_livre > tempo_total) {
+   tempo_total = caixas[i].tempo_livre;
+}  
+  }
+printf("%d\n", tempo_total);
+  return 0;
+}
