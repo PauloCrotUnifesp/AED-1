@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+//Escrever um programa que imprima numeros de 1 a 10 de modo que quando ele for impar, seja somado mais 1 a ele, e quando ele for par, seja subtraido 1.
+
+void odd();
+void even();
+int n=1;
+
+void odd() {
+  if (n<=10) {
+printf("%d ", n+1);
+    n++;
+  even();
+  }
+  return;
+}
+
+void even() {
+  if(n <= 10) {
+printf("%d ", n-1);
+    n++;
+      odd();
+  }
+  return;
+}
+
+
+int main(void) {
+odd();
+  return 0;
+}
